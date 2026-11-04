@@ -23,7 +23,7 @@ export default function Monstruo({ mirar = false, className = '', titulo, ...res
         const d = Math.hypot(dx, dy) || 1
         const k = Math.min(1, d / 300)
         // unidades del viewBox: el ojo mide ~430, el iris ~230
-        iris.style.transform = `translate(${(dx / d) * 70 * k}px, ${(dy / d) * 70 * k}px)`
+        iris.style.transform = `translate(${(dx / d) * 38 * k}px, ${(dy / d) * 38 * k}px)`
       })
     }
     window.addEventListener('pointermove', mover, { passive: true })

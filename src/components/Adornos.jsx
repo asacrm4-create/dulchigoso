@@ -1,4 +1,5 @@
 import { productos } from '../data/productos'
+import monstruoUrl from '../assets/marca/monstruo.svg?url'
 
 // Banda con los nombres de producto, en la letra de la marca.
 export function Cinta() {
@@ -9,7 +10,7 @@ export function Cinta() {
         {fila.map((p, i) => (
           <span key={i} className="cinta__item">
             {p.nombre.toLowerCase()}
-            <span className="cinta__ojo" />
+            <img className="cinta__monstruo" src={monstruoUrl} alt="" width="40" height="41" />
           </span>
         ))}
       </div>

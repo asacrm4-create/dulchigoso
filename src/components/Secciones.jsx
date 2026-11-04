@@ -214,7 +214,6 @@ const FAQ = [
   { q: '¿Qué presentaciones hay?', a: 'Bolsa de 250 g, charola de 350 g y bites de 100 g. Las tiras de fresa vienen en bolsa de 100 g.' },
   { q: '¿Hacen envíos?', a: 'Sí. Al mandar tu pedido por WhatsApp te confirmamos el costo y los tiempos para tu zona.' },
   { q: '¿Cómo pago?', a: 'Te compartimos las formas de pago al confirmar tu pedido por WhatsApp.' },
-  { q: '¿Sacan ediciones especiales?', a: 'Sí, por temporada. Se anuncian primero en nuestro Instagram, @dulchigoso.' },
 ]
 
 export function Preguntas() {

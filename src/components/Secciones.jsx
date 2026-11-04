@@ -73,13 +73,13 @@ export function HechasAMano() {
           </div>
           <div className="amano__visual" aria-hidden="true">
             <div className="amano__gomita">
-              <GomitaArte forma="osito" colores={['#F4B860']} className="amano__base" />
+              <GomitaArte forma="osito" colores={['#F6C45C']} chile={false} className="amano__base" />
               <div className="amano__capa">
-                <GomitaArte forma="osito" colores={['#D9442B']} />
+                <GomitaArte forma="osito" colores={['#F2893A', '#E2412B']} />
               </div>
             </div>
             <div className="amano__bolsa">
-              <Bolsa nombre="Ositos" forma="osito" colores={['#E2412B']} />
+              <Bolsa nombre="Ositos" forma="osito" colores={['#F2893A', '#E2412B']} />
             </div>
           </div>
         </div>
@@ -211,7 +211,7 @@ const FAQ = [
     a: `Cuando tu pedido junta ${tienda.mayoreo.minimoPiezas} piezas o más, todas pasan a precio de mayoreo. Puedes mezclar sabores y presentaciones.`,
   },
   { q: '¿Qué tan picosas son?', a: 'Cada producto trae su escala de picor y de acidez. Las de nivel 1 son para empezar; las de nivel 3 pican en serio.' },
-  { q: '¿Qué presentaciones hay?', a: 'Bolsa de 250 g, charola de 350 g y bites. Las tiras de fresa vienen en bolsa de 100 g.' },
+  { q: '¿Qué presentaciones hay?', a: 'Bolsa de 250 g, charola de 350 g y bites de 100 g. Las tiras de fresa vienen en bolsa de 100 g.' },
   { q: '¿Hacen envíos?', a: 'Sí. Al mandar tu pedido por WhatsApp te confirmamos el costo y los tiempos para tu zona.' },
   { q: '¿Cómo pago?', a: 'Te compartimos las formas de pago al confirmar tu pedido por WhatsApp.' },
   { q: '¿Sacan ediciones especiales?', a: 'Sí, por temporada. Se anuncian primero en nuestro Instagram, @dulchigoso.' },

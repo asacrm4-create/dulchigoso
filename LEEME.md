@@ -13,12 +13,12 @@ Tienda de gomitas cubiertas con chamoy: compra por pieza y por mayoreo, y pedido
 
 ### Pendiente de confirmar con Dulchigoso
 - [ ] Número de WhatsApp que recibe pedidos (`whatsapp` en `tienda.js`). Sin él, el botón abre WhatsApp sin destinatario.
-- [ ] Precios reales y quitar el aviso de precios de ejemplo (`preciosDeEjemplo: false`).
+- [ ] Precios reales y quitar el aviso de precios de ejemplo (`preciosDeEjemplo: false`). La bolsa de 250 g ($89.50) y las tiras de fresa ($49.50) son los precios publicados en Mercado San Juan; el resto es de ejemplo.
 - [ ] Mínimo de piezas para mayoreo (hoy 24) y de cuánto en cuánto se pide (hoy 6).
-- [ ] Qué presentaciones tiene cada producto (hoy todas tienen bolsa, charola y bites).
+- [ ] Qué presentaciones tiene cada producto (hoy todas tienen bolsa de 250 g, charola de 350 g y bites de 100 g; las tiras de fresa solo bolsa de 100 g).
 - [ ] Direcciones de los puntos de venta.
 - [ ] Historia de la fundadora: confirmar el texto de "Hechas a mano".
-- [ ] Logo y monstruo en archivo vectorial original (SVG/AI/PDF), si los tienen. Hoy están vectorizados a partir de una imagen del logo.
+- [ ] Logo y monstruo en archivo vectorial original (SVG/AI/PDF), si los tienen. Hoy el monstruo está redibujado a mano en vector calcando el logo, y las letras del nombre vectorizadas de una imagen.
 
 ## Cómo funciona la compra
 - **Por pieza:** se elige presentación y cantidad, y se agrega al pedido.
@@ -28,8 +28,9 @@ Tienda de gomitas cubiertas con chamoy: compra por pieza y por mayoreo, y pedido
 - El pedido se guarda en el navegador aunque se cierre la página.
 
 ## Sorpresas del monstruo
-- El ojo del inicio sigue al cursor; si le das clic, guiña.
+- Toca al monstruo del inicio y suelta más gomitas; se pueden arrastrar y aventar.
 - 5 clics seguidos al logo: el monstruo se asoma desde abajo.
+- El monstruo parpadea y su ojo sigue al cursor en todo el sitio.
 - Escribir `chamoy` en cualquier parte de la página: el monstruo sale a dar una mordida.
 - El monstruo se asoma sobre el pie de página y te sigue con el ojo.
 - Si cambias de pestaña, el título de la página te extraña.
@@ -51,5 +52,5 @@ La carpeta `dist/` se sube tal cual a Vercel, Netlify o Cloudflare Pages (gratis
 
 ## Tecnología
 Vite + React · Three.js / React Three Fiber + Rapier (física de las gomitas) · GSAP ScrollTrigger · Lenis · Motion · Zustand.
-Tipografías locales: Chicle (cercana a la letra del logo) y Schibsted Grotesk.
+Tipografías locales: Bagel Fat One (títulos, cercana al wordmark), Fredoka (botones y lema) y Schibsted Grotesk (texto).
 Guías de diseño instaladas en `.claude/skills/` (impeccable y la de Emil Kowalski) para futuras mejoras.

@@ -64,7 +64,7 @@ function Tarjeta({ p, esMayoreoActivo }) {
   return (
     <motion.article layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="producto">
       <div className="producto__arte" ref={arte}>
-        {p.foto ? <img src={p.foto} alt={p.nombre} loading="lazy" /> : <Bolsa nombre={p.nombre} forma={p.forma} colores={p.colores} />}
+        {p.foto ? <img src={p.foto} alt={p.nombre} loading="lazy" /> : <Bolsa nombre={p.nombre} forma={p.forma} colores={p.colores} peso={pres.peso} />}
       </div>
       <div className="producto__info">
         <div className="producto__cabeza">
@@ -138,7 +138,7 @@ function HojaMayoreo() {
             <tr key={p.id}>
               <th scope="row">
                 <span className="hoja__prod">
-                  <Bolsa nombre={p.nombre} forma={p.forma} colores={p.colores} className="hoja__mini" />
+                  <Bolsa nombre={p.nombre} forma={p.forma} colores={p.colores} className="hoja__mini" detalle={false} />
                   <span>
                     <strong>{p.nombre}</strong>
                     <small>
@@ -230,7 +230,7 @@ export default function Tienda() {
         <p className="tienda__intro">
           {modo === 'mayoreo'
             ? `Para dulcerías, tiendas, gimnasios, cafeterías y reventa. Se pide de ${tienda.mayoreo.paquete} en ${tienda.mayoreo.paquete} y puedes mezclar sabores y presentaciones.`
-            : 'Bolsa de 250 g, charola de 350 g o bites. Si juntas suficientes piezas, el precio de mayoreo se aplica solo.'}
+            : 'Bolsa de 250 g, charola de 350 g o bites de 100 g. Si juntas suficientes piezas, el precio de mayoreo se aplica solo.'}
         </p>
 
         <BarraMayoreo />

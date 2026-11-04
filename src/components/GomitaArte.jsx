@@ -1,79 +1,97 @@
 import { useId } from 'react'
 
-// Ilustraciones SVG de cada forma (se usan mientras no haya foto real).
-// Cada forma se dibuja dos veces: con sus colores y luego con la "capa de chile" encima.
+// Ilustraciones planas de cada gomita, en el estilo del logo: formas limpias, dos tonos,
+// un "lado" más oscuro para el volumen, un brillo de azúcar y unas cuantas hojuelas de chile.
+// Se usan mientras no haya foto real del producto (campo `foto` en productos.js).
+
+function oscurecer(hex, k = 0.8) {
+  const n = parseInt(hex.replace('#', ''), 16)
+  const r = Math.round(((n >> 16) & 255) * k)
+  const g = Math.round(((n >> 8) & 255) * k)
+  const b = Math.round((n & 255) * k)
+  return `rgb(${r},${g},${b})`
+}
+
 const FORMAS = {
-  osito: (a) => (
-    <g fill={a}>
-      <circle cx="100" cy="62" r="34" />
-      <circle cx="72" cy="34" r="14" />
-      <circle cx="128" cy="34" r="14" />
-      <ellipse cx="100" cy="122" rx="44" ry="48" />
-      <circle cx="58" cy="104" r="16" />
-      <circle cx="142" cy="104" r="16" />
-      <circle cx="74" cy="166" r="19" />
-      <circle cx="126" cy="166" r="19" />
+  osito: (a, b) => (
+    <g>
+      <g fill={a}>
+        <circle cx="74" cy="42" r="15" />
+        <circle cx="126" cy="42" r="15" />
+        <circle cx="100" cy="62" r="33" />
+        <path d="M62 86 h76 c10 0 16 8 15 18 l-6 48 c-1 10 -8 16 -18 16 h-58 c-10 0 -17 -6 -18 -16 l-6 -48 c-1 -10 5 -18 15 -18z" />
+        <ellipse cx="54" cy="108" rx="13" ry="22" transform="rotate(18 54 108)" />
+        <ellipse cx="146" cy="108" rx="13" ry="22" transform="rotate(-18 146 108)" />
+        <ellipse cx="76" cy="166" rx="17" ry="19" />
+        <ellipse cx="124" cy="166" rx="17" ry="19" />
+      </g>
+      <g fill={oscurecer(b, 0.72)} opacity=".35">
+        <circle cx="90" cy="56" r="3" />
+        <circle cx="110" cy="56" r="3" />
+        <ellipse cx="100" cy="70" rx="9" ry="6" />
+      </g>
     </g>
   ),
   lombriz: (a, b) => (
-    <g fill="none" strokeWidth="30" strokeLinecap="round">
-      <path d="M30 140 C 50 80, 85 80, 100 110" stroke={a} />
-      <path d="M100 110 C 115 140, 150 140, 170 60" stroke={b} />
+    <g fill="none" strokeWidth="32" strokeLinecap="round">
+      <path d="M28 128 C 44 72, 86 70, 100 108" stroke={a} />
+      <path d="M100 108 C 114 146, 150 146, 172 72" stroke={b} />
+      <g stroke={oscurecer(a, 0.85)} strokeWidth="3" opacity=".45">
+        <path d="M44 100 l20 10 M60 84 l18 12 M80 78 l12 16" />
+      </g>
+      <g stroke={oscurecer(b, 0.85)} strokeWidth="3" opacity=".45">
+        <path d="M118 132 l10 -18 M138 134 l10 -20 M156 118 l10 -18" />
+      </g>
     </g>
   ),
   aro: (a, b) => (
     <g fill="none">
-      <circle cx="100" cy="108" r="54" stroke={b} strokeWidth="30" />
-      <circle cx="100" cy="96" r="54" stroke={a} strokeWidth="32" />
+      <circle cx="100" cy="100" r="60" stroke={a} strokeWidth="26" />
+      <circle cx="100" cy="100" r="41" stroke={b} strokeWidth="14" />
     </g>
   ),
   frutita: (a, b) => (
     <g>
-      <path d="M100 48 C 150 48, 168 88, 154 122 C 140 156, 112 178, 100 178 C 88 178, 60 156, 46 122 C 32 88, 50 48, 100 48 Z" fill={a} />
-      <path d="M100 52 C 86 30, 64 30, 58 40 C 76 44, 86 50, 100 56 C 114 50, 124 44, 142 40 C 136 30, 114 30, 100 52 Z" fill={b} />
+      <path d="M100 58 C 146 58, 166 94, 154 126 C 142 160, 114 180, 100 180 C 86 180, 58 160, 46 126 C 34 94, 54 58, 100 58 Z" fill={a} />
+      <path d="M100 62 C 90 44, 70 40, 60 48 C 76 52, 88 58, 100 66 C 112 58, 124 52, 140 48 C 130 40, 110 44, 100 62 Z" fill={b} />
+      <path d="M100 42 v18" stroke={oscurecer(b, 0.7)} strokeWidth="5" strokeLinecap="round" />
     </g>
   ),
-  manguito: (a) => (
-    <path d="M30 118 C 30 70, 80 46, 124 56 C 160 64, 176 92, 168 118 C 160 146, 120 150, 100 140 C 76 128, 54 150, 30 118 Z" fill={a} />
+  manguito: (a, b) => (
+    <g>
+      <path d="M34 112 C 30 70, 70 42, 118 50 C 160 56, 180 90, 170 122 C 160 154, 118 160, 96 148 C 72 134, 44 148, 34 112 Z" fill={a} />
+      <path d="M52 90 C 60 70, 84 56, 112 58" stroke={b} strokeWidth="9" fill="none" strokeLinecap="round" opacity=".7" />
+    </g>
   ),
   sandia: (a, b) => (
     <g>
-      <path d="M24 70 A 76 76 0 0 0 176 70 Z" fill={b} transform="translate(0 20)" />
-      <path d="M38 70 A 62 62 0 0 0 162 70 Z" fill={a} transform="translate(0 20)" />
+      <path d="M24 86 A 76 76 0 0 0 176 86 Z" fill={b} />
+      <path d="M36 86 A 64 64 0 0 0 164 86 Z" fill="#F6F1E8" />
+      <path d="M44 86 A 56 56 0 0 0 156 86 Z" fill={a} />
+      <g fill={oscurecer(a, 0.45)}>
+        <ellipse cx="80" cy="108" rx="3" ry="5" transform="rotate(-20 80 108)" />
+        <ellipse cx="104" cy="122" rx="3" ry="5" />
+        <ellipse cx="124" cy="104" rx="3" ry="5" transform="rotate(20 124 104)" />
+      </g>
     </g>
   ),
   cherry: (a, b) => (
     <g>
-      <path d="M68 128 C 70 90, 96 50, 112 34 M132 124 C 128 90, 116 54, 112 34" stroke={b} strokeWidth="9" fill="none" strokeLinecap="round" />
-      <path d="M112 34 C 130 22, 156 26, 166 40 C 146 46, 128 44, 112 34 Z" fill={b} />
+      <path d="M68 126 C 70 90, 96 52, 112 36 M132 122 C 128 90, 116 56, 112 36" stroke={b} strokeWidth="8" fill="none" strokeLinecap="round" />
+      <path d="M112 36 C 130 24, 156 28, 166 42 C 146 48, 128 46, 112 36 Z" fill={b} />
       <circle cx="66" cy="138" r="34" fill={a} />
       <circle cx="134" cy="134" r="34" fill={a} />
     </g>
   ),
-  llave: (a, b) => (
-    <g>
-      <circle cx="62" cy="100" r="38" fill="none" stroke={a} strokeWidth="24" />
-      <rect x="92" y="88" width="88" height="24" rx="12" fill={a} />
-      <rect x="146" y="104" width="16" height="30" rx="7" fill={a} />
-      <rect x="120" y="104" width="14" height="22" rx="7" fill={a} />
-      <rect x="96" y="96" width="78" height="8" rx="4" fill={b} />
-    </g>
-  ),
-  tiburon: (a, b) => (
-    <g>
-      <path d="M22 106 C 40 74, 96 60, 140 74 L 150 44 L 160 84 C 170 88, 178 92, 186 100 L 172 104 L 186 124 C 166 118, 156 116, 140 124 C 96 142, 40 136, 22 106 Z" fill={a} />
-      <path d="M30 110 C 60 122, 110 126, 148 116 C 120 136, 60 138, 30 110 Z" fill={b} />
-    </g>
-  ),
   tira: (a, b) => (
     <g>
-      <path d="M20 120 C 60 60, 100 160, 140 90 C 156 64, 172 60, 184 64 L 190 92 C 176 90, 166 96, 156 112 C 116 182, 72 82, 34 146 Z" fill={a} />
-      <path d="M24 126 C 62 72, 100 168, 142 96 C 158 70, 172 70, 186 74" stroke={b} strokeWidth="6" fill="none" strokeLinecap="round" />
+      <path d="M18 118 C 56 56, 96 160, 140 92 C 158 66, 174 62, 186 66 L 190 94 C 176 92, 166 98, 156 114 C 116 184, 72 84, 34 148 Z" fill={a} />
+      <path d="M24 126 C 60 74, 100 170, 142 98 C 158 72, 172 72, 186 76" stroke={b} strokeWidth="7" fill="none" strokeLinecap="round" opacity=".8" />
     </g>
   ),
 }
 
-// Puntos de chile con distribución pseudoaleatoria fija (igual en cada render)
+// Hojuelas de chile con posiciones fijas (misma distribución en cada render)
 function azar(semilla) {
   let t = semilla
   return () => {
@@ -83,43 +101,42 @@ function azar(semilla) {
     return ((r ^ (r >>> 14)) >>> 0) / 4294967296
   }
 }
-const _r = azar(7)
-// Hojuelas de chamoy/chile: formas planas irregulares, pocas y deliberadas (estilo del logo)
-const HOJUELAS = Array.from({ length: 16 }, () => {
-  const x = _r() * 80
-  const y = _r() * 80
-  const t = 1.6 + _r() * 1.8
-  const rot = _r() * 180
-  return { x, y, t, rot, c: _r() < 0.6 ? '#B3364E' : '#8E2639' }
-})
+const _r = azar(11)
+const HOJUELAS = Array.from({ length: 26 }, () => ({ x: 30 + _r() * 140, y: 40 + _r() * 130, t: 1.6 + _r() * 1.9, rot: _r() * 180, o: 0.5 + _r() * 0.45 }))
 
-// Oscurece un color hex (para la cara inferior plana)
-function sombra(hex, k = 0.78) {
-  const n = parseInt(hex.replace('#', ''), 16)
-  const r = Math.round(((n >> 16) & 255) * k)
-  const g = Math.round(((n >> 8) & 255) * k)
-  const b = Math.round((n & 255) * k)
-  return `rgb(${r},${g},${b})`
-}
-
-export default function GomitaArte({ forma = 'osito', colores = ['#FF8A1F', '#E8243B'], className, titulo, ...resto }) {
+export default function GomitaArte({ forma = 'osito', colores = ['#FF8A1F', '#E8243B'], className, titulo, chile = true, ...resto }) {
   const uid = useId().replace(/:/g, '')
   const dibujar = FORMAS[forma] || FORMAS.osito
   const [a, b = a] = colores
-  const pat = `url(#chamoy-${uid})`
   return (
     <svg viewBox="0 0 200 200" className={className} role={titulo ? 'img' : undefined} aria-label={titulo} aria-hidden={titulo ? undefined : true} {...resto}>
       <defs>
-        <pattern id={`chamoy-${uid}`} width="80" height="80" patternUnits="userSpaceOnUse">
-          {HOJUELAS.map((h, i) => (
-            <rect key={i} x={h.x} y={h.y} width={h.t * 1.6} height={h.t} rx={h.t / 3} fill={h.c} transform={`rotate(${h.rot} ${h.x} ${h.y})`} />
-          ))}
-        </pattern>
+        <mask id={`forma-${uid}`} maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="200">
+          {dibujar('#fff', '#fff')}
+        </mask>
+        <linearGradient id={`chamoy-${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset=".3" stopColor="#B3364E" stopOpacity="0" />
+          <stop offset="1" stopColor="#B3364E" stopOpacity=".22" />
+        </linearGradient>
       </defs>
-      {/* volumen plano: la misma forma, más oscura y desplazada */}
-      <g transform="translate(0 7)">{dibujar(sombra(a), sombra(b))}</g>
+      {/* lado inferior más oscuro: volumen plano */}
+      <g transform="translate(0 6)" opacity=".9">
+        {dibujar(oscurecer(a, 0.72), oscurecer(b, 0.72))}
+      </g>
       {dibujar(a, b)}
-      <g>{dibujar(pat, pat)}</g>
+      <g mask={`url(#forma-${uid})`}>
+        {/* baño de chamoy: más cargado hacia abajo */}
+        <rect x="0" y="0" width="200" height="200" fill={`url(#chamoy-${uid})`} />
+        {/* brillo de azúcar */}
+        <ellipse cx="70" cy="58" rx="13" ry="5.5" fill="#fff" opacity=".3" transform="rotate(-32 70 58)" />
+        {chile && (
+          <g fill="#A8253F">
+            {HOJUELAS.map((h, i) => (
+              <rect key={i} x={h.x} y={h.y} width={h.t * 1.7} height={h.t} rx={h.t / 2.2} opacity={h.o} transform={`rotate(${h.rot} ${h.x} ${h.y})`} />
+            ))}
+          </g>
+        )}
+      </g>
     </svg>
   )
 }

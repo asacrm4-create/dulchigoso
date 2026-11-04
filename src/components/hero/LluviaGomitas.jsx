@@ -5,18 +5,18 @@ import GomitaArte from '../GomitaArte'
 // Gomitas planas (mismo estilo que el logo) con física 2D.
 // Se pueden arrastrar y aventar; rebotan en el monstruo.
 const MEZCLA = [
-  { forma: 'osito', colores: ['#D9442B'] },
-  { forma: 'lombriz', colores: ['#E8B444', '#D9442B'] },
-  { forma: 'aro', colores: ['#F08A24', '#F5E6CF'] },
-  { forma: 'osito', colores: ['#9BC53D'] },
-  { forma: 'manguito', colores: ['#F0A030'] },
-  { forma: 'sandia', colores: ['#D9442B', '#5FA84B'] },
-  { forma: 'cherry', colores: ['#B3364E', '#5FA84B'] },
-  { forma: 'osito', colores: ['#F08A24'] },
-  { forma: 'aro', colores: ['#9BC53D', '#F5E6CF'] },
-  { forma: 'lombriz', colores: ['#B3364E', '#F08A24'] },
-  { forma: 'tira', colores: ['#D9442B', '#F5C6C0'] },
-  { forma: 'osito', colores: ['#B3364E'] },
+  { forma: 'osito', colores: ['#E2412B', '#B3364E'] },
+  { forma: 'lombriz', colores: ['#3FBF6E', '#F7B52C'] },
+  { forma: 'aro', colores: ['#F7923C', '#FFE1B8'] },
+  { forma: 'osito', colores: ['#8FCF3A', '#5FB04A'] },
+  { forma: 'manguito', colores: ['#F7B52C', '#FFD56A'] },
+  { forma: 'sandia', colores: ['#E8304A', '#5FB04A'] },
+  { forma: 'frutita', colores: ['#E8304A', '#5FB04A'] },
+  { forma: 'osito', colores: ['#F2893A', '#E2412B'] },
+  { forma: 'aro', colores: ['#8FCF3A', '#F2FAD9'] },
+  { forma: 'lombriz', colores: ['#E2412B', '#F7B52C'] },
+  { forma: 'tira', colores: ['#F2385A', '#FFD6DF'] },
+  { forma: 'cherry', colores: ['#B3364E', '#5FB04A'] },
 ]
 
 function cuerpo(forma, x, y, s) {
@@ -31,6 +31,9 @@ function cuerpo(forma, x, y, s) {
       return Matter.Bodies.circle(x, y, s * 0.42, op)
     case 'sandia':
       return Matter.Bodies.rectangle(x, y, s * 0.8, s * 0.44, { ...op, chamfer: { radius: s * 0.16 } })
+    case 'frutita':
+    case 'manguito':
+      return Matter.Bodies.rectangle(x, y, s * 0.66, s * 0.62, { ...op, chamfer: { radius: s * 0.26 } })
     default:
       return Matter.Bodies.circle(x, y, s * 0.38, op)
   }

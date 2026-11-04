@@ -17,13 +17,15 @@
   --tinta-suave: #6b5049;
   --verde-wa: #1f8a4c;
 
-  --f-marca: 'Chicle', 'Georgia', serif;
+  --f-marca: 'Bagel Fat One', 'Arial Rounded MT Bold', sans-serif; /* títulos: la más cercana al wordmark */
+  --f-ui: 'Fredoka Variable', 'Fredoka', 'Nunito', 'Arial Rounded MT Bold', sans-serif; /* botones, navegación, etiquetas (la letra del lema) */
   --f-texto: 'Schibsted Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
 
   --gutter: clamp(16px, 4vw, 56px);
   --max: 1320px;
   --suave: cubic-bezier(0.16, 1, 0.3, 1);
   --sombra: 0 1px 2px rgba(46, 26, 22, 0.06), 0 12px 32px -12px rgba(46, 26, 22, 0.22);
+  --sombra-bolsa: drop-shadow(0 18px 18px rgba(90, 40, 10, 0.18));
   color-scheme: light;
 }
 
@@ -123,9 +125,9 @@ a {
 .titulo {
   font-family: var(--f-marca);
   font-weight: 400;
-  font-size: clamp(2.6rem, 5.4vw, 4.6rem);
-  line-height: 0.95;
-  letter-spacing: -0.005em;
+  font-size: clamp(2.3rem, 4.8vw, 4.1rem);
+  line-height: 1.02;
+  letter-spacing: 0;
   color: var(--frambuesa);
   margin: 0;
   text-wrap: balance;
@@ -148,8 +150,10 @@ a {
   border: 1.5px solid transparent;
   background: var(--bg);
   color: var(--fg);
-  font-weight: 650;
-  font-size: 16px;
+  font-family: var(--f-ui);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: 0.01em;
   text-decoration: none;
   white-space: nowrap;
   transition: background 0.25s var(--suave), transform 0.25s var(--suave), box-shadow 0.25s var(--suave);
@@ -206,8 +210,9 @@ a {
   background: transparent;
   border-radius: 99px;
   padding: 8px 16px;
+  font-family: var(--f-ui);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   transition: all 0.2s var(--suave);
 }
 .chip:hover {
@@ -237,8 +242,9 @@ a {
   background: none;
   border: 0;
   padding: 6px 0;
+  font-family: var(--f-ui);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--tinta);
 }
 .enlace svg {
@@ -281,61 +287,25 @@ a {
   overflow: visible;
 }
 .monstruo .iris {
-  transition: transform 0.2s ease-out;
+  transition: transform 0.22s ease-out;
+}
+.monstruo .parpado {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  transform: scaleY(0);
+}
+.monstruo--parpadea .parpado {
+  animation: parpadeo 5.6s 1.8s infinite;
 }
 @keyframes parpadeo {
   0%,
-  94%,
+  93%,
   100% {
     transform: scaleY(0);
   }
-  96.5% {
+  95.5%,
+  97% {
     transform: scaleY(1);
-  }
-}
-
-/* Ojo de la bolsa */
-.ojo {
-  position: relative;
-  display: block;
-  border-radius: 50%;
-  background: #fbf8f2;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: inset 0 -6px 0 rgba(46, 26, 22, 0.06);
-}
-.ojo__iris {
-  position: absolute;
-  inset: 22%;
-  border-radius: 50%;
-  transition: transform 0.2s ease-out;
-}
-.ojo__brillo {
-  position: absolute;
-  width: 26%;
-  height: 26%;
-  right: 16%;
-  top: 14%;
-  border-radius: 50%;
-  background: #fbf8f2;
-}
-.ojo__parpado {
-  position: absolute;
-  inset: 0;
-  background: var(--amarillo);
-  transform-origin: 50% 0;
-  transform: scaleY(0);
-  animation: parpadeo 6s 2s infinite;
-}
-.ojo--guino .ojo__parpado {
-  animation: guino 0.5s var(--suave);
-}
-@keyframes guino {
-  40% {
-    transform: scaleY(1);
-  }
-  100% {
-    transform: scaleY(0);
   }
 }
 
@@ -365,8 +335,9 @@ a {
 }
 .nav__links a {
   text-decoration: none;
+  font-family: var(--f-ui);
   font-weight: 600;
-  font-size: 15px;
+  font-size: 17px;
   padding: 9px 14px;
   border-radius: 99px;
   transition: background 0.2s;
@@ -392,7 +363,9 @@ a {
   border: 0;
   background: var(--tinta);
   color: var(--blanco);
-  font-weight: 650;
+  font-family: var(--f-ui);
+  font-weight: 600;
+  font-size: 17px;
 }
 .nav__carrito svg {
   width: 20px;
@@ -412,8 +385,9 @@ a {
   border-radius: 99px;
   background: var(--amarillo);
   color: var(--tinta);
-  font-size: 13px;
-  font-weight: 700;
+  font-family: var(--f-ui);
+  font-size: 14px;
+  font-weight: 600;
   font-variant-numeric: lining-nums;
   display: grid;
   place-items: center;
@@ -495,11 +469,12 @@ a {
   height: auto;
 }
 .hero__sub {
-  max-width: 40ch;
-  margin: 0 0 28px;
+  max-width: 38ch;
+  margin: 0 0 30px;
   font-size: clamp(17px, 1.5vw, 20px);
   line-height: 1.5;
   color: var(--tinta);
+  text-wrap: pretty;
 }
 .hero__ctas {
   display: flex;
@@ -564,16 +539,18 @@ a {
   position: absolute;
   z-index: 3;
   left: 50%;
-  bottom: 14px;
+  bottom: 16px;
   transform: translateX(-50%);
   margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--tinta);
-  background: rgba(245, 240, 231, 0.85);
-  padding: 6px 14px;
+  font-family: var(--f-ui);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--crema);
+  background: rgba(46, 26, 22, 0.78);
+  padding: 7px 16px;
   border-radius: 99px;
   white-space: nowrap;
+  backdrop-filter: blur(6px);
 }
 @media (prefers-reduced-motion: no-preference) {
   .hero__texto {
@@ -614,7 +591,7 @@ a {
   gap: 28px;
   padding-right: 28px;
   font-family: var(--f-marca);
-  font-size: clamp(24px, 2.6vw, 34px);
+  font-size: clamp(22px, 2.3vw, 30px);
   white-space: nowrap;
 }
 .cinta__monstruo {
@@ -668,8 +645,9 @@ a {
   height: 46px;
   padding: 0 22px;
   border-radius: 99px;
-  font-weight: 650;
-  font-size: 15px;
+  font-family: var(--f-ui);
+  font-weight: 600;
+  font-size: 16px;
   color: var(--tinta);
   transition: color 0.25s;
 }
@@ -745,14 +723,18 @@ a {
   display: grid;
   place-items: center;
   overflow: hidden;
+  transition: background 0.4s var(--suave);
+}
+.producto:hover .producto__arte {
+  background: #f1e7d6;
 }
 .producto__arte::after {
   content: '';
   position: absolute;
-  left: 22%;
-  right: 22%;
-  bottom: 6%;
-  height: 6%;
+  left: 26%;
+  right: 26%;
+  bottom: 7%;
+  height: 5%;
   border-radius: 50%;
   background: rgba(120, 60, 30, 0.22);
   filter: blur(8px);
@@ -761,8 +743,9 @@ a {
 .producto__arte > svg {
   position: relative;
   z-index: 1;
-  height: 84%;
+  height: 86%;
   width: auto;
+  filter: var(--sombra-bolsa);
   transition: transform 0.6s var(--suave);
 }
 .producto__arte > img {
@@ -793,16 +776,17 @@ a {
 .producto__nombre {
   font-family: var(--f-marca);
   font-weight: 400;
-  font-size: 32px;
-  line-height: 1;
+  font-size: 27px;
+  line-height: 1.05;
   margin: 0;
   color: var(--tinta);
 }
 .producto__etiqueta {
   flex: none;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 10px;
+  font-family: var(--f-ui);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 11px;
   border-radius: 99px;
   background: var(--amarillo);
 }
@@ -819,9 +803,10 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
-  font-weight: 650;
-  letter-spacing: 0.06em;
+  font-family: var(--f-ui);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--tinta-suave);
 }
@@ -850,8 +835,9 @@ a {
   border: 1.5px solid var(--crema-2);
   background: transparent;
   border-radius: 99px;
-  padding: 6px 12px;
-  font-size: 13px;
+  padding: 6px 13px;
+  font-family: var(--f-ui);
+  font-size: 14px;
   font-weight: 600;
   transition: all 0.2s var(--suave);
 }
@@ -958,8 +944,9 @@ a {
   position: sticky;
   top: 0;
   background: var(--blanco);
-  font-size: 12px;
-  font-weight: 700;
+  font-family: var(--f-ui);
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--tinta-suave);
@@ -987,9 +974,10 @@ a {
   font-size: 12px;
 }
 .hoja__mini {
-  width: 34px;
+  width: 36px;
   height: auto;
   flex: none;
+  overflow: visible;
 }
 .hoja td {
   white-space: nowrap;
@@ -1082,7 +1070,9 @@ a {
   transform: scaleY(1);
 }
 .amano__pasos strong {
-  font-size: 19px;
+  font-family: var(--f-ui);
+  font-weight: 600;
+  font-size: 20px;
 }
 .amano__pasos p {
   margin: 2px 0 0;
@@ -1126,9 +1116,10 @@ a {
 }
 .amano__bolsa {
   position: absolute;
-  left: 22%;
-  right: 22%;
-  bottom: -4%;
+  left: 24%;
+  right: 24%;
+  bottom: -3%;
+  filter: var(--sombra-bolsa);
 }
 .amano--estatico .amano__bolsa {
   display: none;
@@ -1165,8 +1156,11 @@ a {
 }
 .mayoreo__form h3 {
   margin: 0 0 22px;
-  font-size: 20px;
-  line-height: 1.25;
+  font-family: var(--f-marca);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--frambuesa);
 }
 
 /* ── Dónde comprar ──────────────────────────────────────── */
@@ -1205,7 +1199,7 @@ a {
   align-items: center;
   gap: 8px;
   font-family: var(--f-marca);
-  font-size: 26px;
+  font-size: 22px;
   line-height: 1.1;
   color: var(--frambuesa);
 }
@@ -1219,8 +1213,9 @@ a {
 }
 .donde__lugar {
   display: block;
-  font-size: 18px;
-  font-weight: 600;
+  font-family: var(--f-ui);
+  font-size: 19px;
+  font-weight: 500;
   text-decoration: none;
 }
 .donde__lugar svg {
@@ -1264,8 +1259,9 @@ a.donde__lugar:hover {
   align-items: center;
   gap: 20px;
   padding: 22px 0;
-  font-weight: 650;
-  font-size: clamp(17px, 1.6vw, 20px);
+  font-family: var(--f-ui);
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 21px);
 }
 .acordeon__item summary::-webkit-details-marker {
   display: none;
@@ -1356,7 +1352,9 @@ a.donde__lugar:hover {
 }
 .pie a {
   text-decoration: none;
-  font-weight: 600;
+  font-family: var(--f-ui);
+  font-weight: 500;
+  font-size: 18px;
 }
 .pie a:hover {
   text-decoration: underline;
@@ -1410,7 +1408,7 @@ a.donde__lugar:hover {
 .carrito__cabeza h2 {
   font-family: var(--f-marca);
   font-weight: 400;
-  font-size: 36px;
+  font-size: 32px;
   line-height: 1;
   margin: 0;
   color: var(--frambuesa);
@@ -1452,6 +1450,7 @@ a.donde__lugar:hover {
 .linea__arte svg {
   height: 100%;
   width: auto;
+  overflow: visible;
 }
 .linea__arte img {
   width: 100%;
@@ -1558,8 +1557,9 @@ a.donde__lugar:hover {
 }
 .campo > span,
 .campo legend {
-  font-weight: 650;
-  font-size: 14px;
+  font-family: var(--f-ui);
+  font-weight: 600;
+  font-size: 15px;
   padding: 0;
   margin-bottom: 4px;
 }
@@ -1646,7 +1646,8 @@ a.donde__lugar:hover {
   white-space: nowrap;
   background: var(--tinta);
   color: var(--blanco);
-  font-weight: 650;
+  font-family: var(--f-ui);
+  font-weight: 600;
   padding: 8px 14px;
   border-radius: 14px;
 }
@@ -1694,9 +1695,6 @@ a.donde__lugar:hover {
   .amano__visual {
     max-width: 300px;
     order: -1;
-  }
-  .amano__historia {
-    display: none;
   }
   .amano__pasos li:not(.on) p {
     display: none;
@@ -1829,22 +1827,18 @@ a.donde__lugar:hover {
 }
 
 /* ── Bolsa (SVG) ────────────────────────────────────────── */
-.bolsa__logo {
-  font-family: var(--f-marca);
-  font-size: 31px;
-}
 .bolsa__nombre {
   font-family: var(--f-marca);
   fill: #fff;
-  stroke: #e0962e;
-  stroke-width: 3px;
+  stroke: #e58a1e;
+  stroke-width: 2.6px;
+  stroke-linejoin: round;
   paint-order: stroke;
   letter-spacing: 0.02em;
 }
-.bolsa__peso {
-  font-family: var(--f-texto);
-  font-size: 7px;
-  fill: var(--tinta);
+.bolsa__gomita {
+  transform-box: fill-box;
+  transform-origin: center;
 }
 @media (max-width: 600px) {
   .logo svg {

@@ -96,7 +96,7 @@ export default function Carrito() {
                       {pedido.lineas.map((l) => (
                         <motion.li key={l.key} layout initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30, height: 0 }} className="linea">
                           <div className="linea__arte">
-                            {l.producto.foto ? <img src={l.producto.foto} alt="" /> : <Bolsa nombre={l.producto.nombre} forma={l.producto.forma} colores={l.producto.colores} />}
+                            {l.producto.foto ? <img src={l.producto.foto} alt="" /> : <Bolsa nombre={l.producto.nombre} forma={l.producto.forma} colores={l.producto.colores} peso={l.pres.peso} detalle={false} />}
                           </div>
                           <div className="linea__info">
                             <strong>{l.producto.nombre}</strong>

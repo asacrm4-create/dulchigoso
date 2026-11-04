@@ -1,9 +1,16 @@
 import { useEffect, useRef } from 'react'
 import monstruoSvg from '../assets/marca/monstruo.svg?raw'
 
-// El monstruo oficial de Dulchigoso (vectorizado del logo original).
-// mirar: el iris sigue al cursor.
-export default function Monstruo({ mirar = false, className = '', titulo, ...resto }) {
+// El monstruo oficial de Dulchigoso, dibujado en vector limpio a partir del logo original.
+// Coordenadas del viewBox: 4 36 160 174. El ojo está centrado en (89,117).
+const OJO = { x: (89 - 4) / 160, y: (117 - 36) / 174 }
+
+// Cuernos (mismos trazos que el monstruo) para reutilizarlos en la bolsa.
+export const CuernoIzq = (p) => <path d="M 46 52 C 26 50, 10 62, 7 80 C 4 94, 12 106, 32 106 C 36 100, 34 88, 36 76 C 38 66, 42 58, 46 52 Z" {...p} />
+export const CuernoDer = (p) => <path d="M 118 49 C 132 44, 150 47, 154 58 C 157 67, 150 75, 136 76 C 138 68, 133 60, 126 56 C 123 54, 120 51, 118 49 Z" {...p} />
+
+// mirar: el iris sigue al cursor. parpadea: cierra el ojo de vez en cuando.
+export default function Monstruo({ mirar = false, parpadea = true, className = '', titulo, ...resto }) {
   const caja = useRef(null)
 
   useEffect(() => {
@@ -14,16 +21,16 @@ export default function Monstruo({ mirar = false, className = '', titulo, ...res
     const mover = (e) => {
       cancelAnimationFrame(raf)
       raf = requestAnimationFrame(() => {
+        if (!caja.current) return
         const r = caja.current.getBoundingClientRect()
-        // centro del ojo en el dibujo (≈ 52% ancho, 35% alto)
-        const ox = r.left + r.width * 0.52
-        const oy = r.top + r.height * 0.36
+        const ox = r.left + r.width * OJO.x
+        const oy = r.top + r.height * OJO.y
         const dx = e.clientX - ox
         const dy = e.clientY - oy
         const d = Math.hypot(dx, dy) || 1
-        const k = Math.min(1, d / 300)
-        // unidades del viewBox: el ojo mide ~430, el iris ~230
-        iris.style.transform = `translate(${(dx / d) * 38 * k}px, ${(dy / d) * 38 * k}px)`
+        const k = Math.min(1, d / 320)
+        // unidades del viewBox: la esclera mide r=26 y el iris r=15.5
+        iris.style.transform = `translate(${((dx / d) * 8.5 * k).toFixed(2)}px, ${((dy / d) * 8.5 * k).toFixed(2)}px)`
       })
     }
     window.addEventListener('pointermove', mover, { passive: true })
@@ -36,54 +43,12 @@ export default function Monstruo({ mirar = false, className = '', titulo, ...res
   return (
     <span
       ref={caja}
-      className={`monstruo ${className}`}
+      className={`monstruo ${parpadea ? 'monstruo--parpadea' : ''} ${className}`}
       role={titulo ? 'img' : undefined}
       aria-label={titulo}
       aria-hidden={titulo ? undefined : true}
       dangerouslySetInnerHTML={{ __html: monstruoSvg }}
       {...resto}
     />
-  )
-}
-
-// Solo el ojo (como en la bolsa). Sigue al cursor y parpadea. Clic = guiño.
-export function Ojo({ className = '', color = '#E2412B' }) {
-  const iris = useRef(null)
-  const caja = useRef(null)
-  useEffect(() => {
-    let raf = 0
-    const mover = (e) => {
-      cancelAnimationFrame(raf)
-      raf = requestAnimationFrame(() => {
-        const el = caja.current
-        if (!el || !iris.current) return
-        const r = el.getBoundingClientRect()
-        const dx = e.clientX - (r.left + r.width / 2)
-        const dy = e.clientY - (r.top + r.height / 2)
-        const d = Math.hypot(dx, dy) || 1
-        const k = Math.min(1, d / 420)
-        const m = r.width * 0.2
-        iris.current.style.transform = `translate(${(dx / d) * m * k}px, ${(dy / d) * m * k}px)`
-      })
-    }
-    window.addEventListener('pointermove', mover, { passive: true })
-    return () => {
-      window.removeEventListener('pointermove', mover)
-      cancelAnimationFrame(raf)
-    }
-  }, [])
-  const guino = (e) => {
-    const el = e.currentTarget
-    el.classList.remove('ojo--guino')
-    void el.getBoundingClientRect()
-    el.classList.add('ojo--guino')
-  }
-  return (
-    <span ref={caja} className={`ojo ${className}`} onClick={guino} aria-hidden="true">
-      <span ref={iris} className="ojo__iris" style={{ background: color }}>
-        <span className="ojo__brillo" />
-      </span>
-      <span className="ojo__parpado" />
-    </span>
   )
 }
